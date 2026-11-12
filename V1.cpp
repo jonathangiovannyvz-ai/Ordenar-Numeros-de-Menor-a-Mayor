@@ -1,37 +1,34 @@
 #include <iostream>
+#include <vector>
+#include <algorithm> // Necesaria para usar sort()
+
 using namespace std;
 
 int main() {
-    const int TAMANO = 5;
-    int numeros[TAMANO];
-    int auxiliar;
+    vector<int> numeros;
+    int num_ingresado;
+    char continuar;
 
-    cout << "--- ORDENADOR DE NUMEROS (MAYOR A MENOR) ---" << endl;
+    cout << "--- ORDENADOR DINAMICO (MAYOR A MENOR) ---" << endl;
 
-    // 1. Solicitar los números al usuario
-    for (int i = 0; i < TAMANO; i++) {
-        cout << "Ingresa el numero " << (i + 1) << ": ";
-        cin >> numeros[i];
-    }
+    // 1. Ciclo para ingresar números ilimitados
+    do {
+        cout << "Ingresa un numero: ";
+        cin >> num_ingresado;
+        numeros.push_back(num_ingresado); // Guarda el número en el vector
 
-    // 2. Ordenar usando el Método de la Burbuja
-    // Comparamos cada número con el siguiente e intercambiamos si es necesario
-    for (int i = 0; i < TAMANO - 1; i++) {
-        for (int j = 0; j < TAMANO - i - 1; j++) {
-            // Si el actual es MENOR que el siguiente, los intercambiamos (orden descendente)
-            if (numeros[j] < numeros[j + 1]) {
-                auxiliar = numeros[j];
-                numeros[j] = numeros[j + 1];
-                numeros[j + 1] = auxiliar;
-            }
-        }
-    }
+        cout << "¿Deseas ingresar otro numero? (s/n): ";
+        cin >> continuar;
+    } while (continuar == 's' || continuar == 'S');
+
+    // 2. Ordenar de mayor a menor usando la librería estándar
+    // greater<int>() le dice a sort() que ordene de forma descendente
+    sort(numeros.begin(), numeros.end(), greater<int>());
 
     // 3. Mostrar el resultado
-    cout << "\n--- NUMEROS ORDENADOS DE MAYOR A MENOR ---" << endl;
-    for (int i = 0; i < TAMANO; i++) {
-        cout << numeros[i];
-        if (i < TAMANO - 1) cout << " > "; // Separador visual
+    cout << "\n--- NUMEROS ORDENADOS ---" << endl;
+    for (int i = 0; i < numeros.size(); i++) {
+        cout << numeros[i] << " ";
     }
     cout << endl;
 
